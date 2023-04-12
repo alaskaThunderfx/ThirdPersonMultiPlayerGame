@@ -1,4 +1,4 @@
-namespace States
+namespace StateMachines
 {
     public abstract class State
     {
