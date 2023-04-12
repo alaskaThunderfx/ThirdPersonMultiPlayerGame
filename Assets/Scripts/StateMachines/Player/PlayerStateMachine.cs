@@ -4,16 +4,11 @@ using UnityEngine;
 
 namespace StateMachines.Player
 {
-    public class PlayerStateMachine : MonoBehaviour
+    public class PlayerStateMachine : StateMachine
     {
         void Start()
         {
-            
-        }
-    
-        void Update()
-        {
-            
+            SwitchState(new PlayerTestState(this));
         }
     }
 }

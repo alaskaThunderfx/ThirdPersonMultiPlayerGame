@@ -21,7 +21,7 @@ namespace StateMachines
         }
         
         // Private methods
-        void SwitchState(State newState)
+        public void SwitchState(State newState)
         {
             // Checks whether the CurrentState variable has a value, if it does, it exits the current state
             CurrentState?.Exit();
