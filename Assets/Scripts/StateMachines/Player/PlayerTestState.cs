@@ -5,31 +5,37 @@ namespace StateMachines.Player
     public class PlayerTestState : PlayerBaseState
     {
         private float Timer;
-        
+
         public PlayerTestState(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 
+        // Interface methods
+
         public override void Enter()
         {
             Debug.Log("Enter");
+            StateMachine.InputReader.OnJumpEvent += OnJump;
         }
 
         public override void Tick(float deltaTime)
         {
-            Debug.Log("Tick");
             Timer += deltaTime;
-            Debug.Log(5 - Timer);
-            if (Timer >= 5)
-            {
-                StateMachine.SwitchState(new PlayerTestState(StateMachine));
-            }
+
+            Debug.Log(Timer);
         }
 
         public override void Exit()
         {
             Debug.Log("Exit");
+            StateMachine.InputReader.OnJumpEvent -= OnJump;
+        }
+
+        // Private methods
+
+        private void OnJump()
+        {
+            StateMachine.SwitchState(new PlayerTestState(StateMachine));
         }
     }
 }
-
