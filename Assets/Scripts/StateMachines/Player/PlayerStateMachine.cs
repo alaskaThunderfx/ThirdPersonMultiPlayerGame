@@ -16,6 +16,7 @@ namespace StateMachines.Player
 
         // Public variables representing values
         [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }
+        [field: SerializeField] public float RotationDamping { get; private set; }
 
         // Built-in methods
         void Start()
@@ -25,7 +26,7 @@ namespace StateMachines.Player
             if (Camera.main != null) MainCameraTransform = Camera.main.transform;
             
             // Switches state when PlayerStateMachine is called
-            SwitchState(new PlayerTestState(this));
+            SwitchState(new PlayerFreeLookState(this));
         }
     }
 }

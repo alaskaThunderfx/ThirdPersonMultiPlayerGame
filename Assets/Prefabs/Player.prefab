@@ -1755,6 +1755,7 @@ MonoBehaviour:
   <CharacterController>k__BackingField: {fileID: 8082345556229133388}
   <Animator>k__BackingField: {fileID: 5012751030171638139}
   <FreeLookMovementSpeed>k__BackingField: 6
+  <RotationDamping>k__BackingField: 10
 --- !u!114 &2305900792980070372
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,24 @@
-using Unity.Mathematics;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace StateMachines.Player
 {
-    public class PlayerTestState : PlayerBaseState
+    [Serializable]
+    public class PlayerFreeLookState : PlayerBaseState
     {
-        public PlayerTestState(PlayerStateMachine stateMachine) : base(stateMachine)
+        // Private variables
+
+        // Assigns the int value from the FreeLookSpeed variable at the beginning of the game running and it will not 
+        // change again
+        private static readonly int FreeLookSpeedHash = Animator.StringToHash("FreeLookSpeed");
+
+        // Variable that dictates the speed with which the animation transition between each other. Can be tweaked in the
+        // editor
+        [SerializeField] private float animatorDampTime = 0.1f;
+
+        // Constructor method
+        public PlayerFreeLookState(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -31,19 +44,18 @@ namespace StateMachines.Player
             {
                 // If it is not, the FreeLookSpeed variable in the Animator will be set to zero, which indicates that 
                 // the idle animation should be playing
-                StateMachine.Animator.SetFloat("FreeLookSpeed", 0, 0.1f, deltaTime);
+                StateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, animatorDampTime, deltaTime);
                 // Breaks the Tick loop here
                 return;
             }
 
             // If there are movement values being sent from the InputReader, it changes the value of the FreeLookSpeed
             // Animator variable to 1, which indicates that the running animation should be playing
-            StateMachine.Animator.SetFloat("FreeLookSpeed", 1, 0.1f, deltaTime);
+            StateMachine.Animator.SetFloat(FreeLookSpeedHash, 1, animatorDampTime, deltaTime);
 
-            // When the character does move, the built-in method Quaternion.LookRotation() will face the character in
-            // the direction it is being moved, as dictated by the movement variable. 
-            StateMachine.transform.rotation = Quaternion.LookRotation(movement);
+            FaceMovementDirection(movement, deltaTime);
         }
+
 
         public override void Exit()
         {
@@ -70,6 +82,17 @@ namespace StateMachines.Player
             // space
             return forward * StateMachine.InputReader.MovementValue.y +
                    right * StateMachine.InputReader.MovementValue.x;
+        }
+
+        // Method that corrects the rotation of the player
+        private void FaceMovementDirection(Vector3 movement, float deltaTime)
+        {
+            // When the character does move, the built-in method Quaternion.LookRotation() will face the character in
+            // the direction it is being moved, as dictated by the movement variable. 
+            StateMachine.transform.rotation = Quaternion.Lerp(
+                StateMachine.transform.rotation,
+                Quaternion.LookRotation(movement),
+                deltaTime * StateMachine.RotationDamping);
         }
     }
 }
