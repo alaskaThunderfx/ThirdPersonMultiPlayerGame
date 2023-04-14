@@ -7,6 +7,8 @@ namespace StateMachines.Player
     {
         // Public variables
         [field: SerializeField] public InputReader InputReader { get; private set; }
+        [field: SerializeField] public CharacterController CharacterController { get; private set; }
+        [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }
 
         // Built-in methods
         void Start()
