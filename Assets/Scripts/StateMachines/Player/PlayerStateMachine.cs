@@ -5,9 +5,12 @@ namespace StateMachines.Player
 {
     public class PlayerStateMachine : StateMachine
     {
-        // Public variables
+        // Public variables for Character prefab components
         [field: SerializeField] public InputReader InputReader { get; private set; }
         [field: SerializeField] public CharacterController CharacterController { get; private set; }
+        [field: SerializeField] public Animator Animator { get; private set; }
+        
+        // Public variables representing values
         [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }
 
         // Built-in methods

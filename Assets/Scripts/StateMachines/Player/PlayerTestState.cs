@@ -33,8 +33,19 @@ namespace StateMachines.Player
             // by deltaTime to keep the speed frame rate independent.
             StateMachine.CharacterController.Move(movement * (StateMachine.FreeLookMovementSpeed * deltaTime));
 
-            // Ends Tick loop if the character is not moving
-            if (StateMachine.InputReader.MovementValue == Vector2.zero) return;
+            // Checks to see if any values representing movement are being sent by the InputReader
+            if (StateMachine.InputReader.MovementValue == Vector2.zero)
+            {   
+                // If it is not, the FreeLookSpeed variable in the Animator will be set to zero, which indicates that 
+                // the idle animation should be playing
+                StateMachine.Animator.SetFloat("FreeLookSpeed", 0, 0.1f, deltaTime);
+                // Breaks the Tick loop here
+                return;
+            }
+            
+            // If there are movement values being sent from the InputReader, it changes the value of the FreeLookSpeed
+            // Animator variable to 1, which indicates that the running animation should be playing
+            StateMachine.Animator.SetFloat("FreeLookSpeed", 1, 0.1f, deltaTime);
 
             // When the character does move, the built-in method Quaternion.LookRotation() will face the character in
             // the direction it is being moved, as dictated by the movement variable. 
