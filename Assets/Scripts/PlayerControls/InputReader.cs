@@ -52,7 +52,14 @@ namespace PlayerControls
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            // Just assigns the MovementValue value to be whatever values are received via the context variable
             MovementValue = context.ReadValue<Vector2>();
+        }
+
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            // This method is here as a requirement from the Control object in Unity. However, the actual control of 
+            // looking is handled by Cinemachine, so this body will remain blank
         }
     }
 }
