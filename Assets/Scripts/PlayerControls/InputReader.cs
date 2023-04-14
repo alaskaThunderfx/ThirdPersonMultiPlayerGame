@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace PlayerControls
 {
     public class InputReader : MonoBehaviour, Controls.IPlayerActions
     {
+        // Public variables
+        public Vector2 MovementValue { get; private set; }
+
         // Events
         public event Action OnJumpEvent;
         public event Action OnDodgeEvent;
@@ -32,7 +36,7 @@ namespace PlayerControls
         {
             // Checks to see if the button has been pressed, returns if not
             if (!context.performed) return;
-            
+
             // Checks that OnJumpEvent is not null, then invokes it
             OnJumpEvent?.Invoke();
         }
@@ -41,9 +45,14 @@ namespace PlayerControls
         {
             // Checks to see if the button has been pressed, returns if not
             if (!context.performed) return;
-            
+
             // Checks that OnDodgeEvent is not null, then invokes it
             OnDodgeEvent?.Invoke();
+        }
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            MovementValue = context.ReadValue<Vector2>();
         }
     }
 }
