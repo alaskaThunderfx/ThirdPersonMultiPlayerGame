@@ -24,6 +24,7 @@ namespace StateMachines.Player
             // Confirms that the main camera exists, then sets the MainCameraTransform value to be equal to the
             // transform of the main camera in Unity
             if (Camera.main != null) MainCameraTransform = Camera.main.transform;
+            Debug.Log($"Main Camera = {Camera.main.name}");
             
             // Switches state when PlayerStateMachine is called
             SwitchState(new PlayerFreeLookState(this));
