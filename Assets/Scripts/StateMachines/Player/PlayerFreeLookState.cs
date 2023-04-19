@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Networking.PlayerConnection;
 
 namespace StateMachines.Player
 {
@@ -26,6 +26,8 @@ namespace StateMachines.Player
 
         public override void Enter()
         {
+            // Subscribes the OnTarget method when this state is enetered
+            StateMachine.InputReader.OnToggleTargetEvent += OnTarget;
         }
 
         public override void Tick(float deltaTime)
@@ -59,9 +61,18 @@ namespace StateMachines.Player
 
         public override void Exit()
         {
+            // Unsubscribes the OnTarget event
+            StateMachine.InputReader.OnToggleTargetEvent -= OnTarget;
         }
 
         // Private methods
+        
+        // Method that should toggle the targeting state
+        private void OnTarget()
+        {
+            // Switches the states from this one to the TargetingState
+            StateMachine.SwitchState(new PlayerTargetingState(StateMachine));
+        }
 
         // Method that handles calculating the movement based on factors within the body of this method.
         private Vector3 CalculateMovement()

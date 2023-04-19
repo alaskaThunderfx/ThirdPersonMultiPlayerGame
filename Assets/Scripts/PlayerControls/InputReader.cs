@@ -13,6 +13,8 @@ namespace PlayerControls
         // Events
         public event Action OnJumpEvent;
         public event Action OnDodgeEvent;
+        public event Action OnToggleTargetEvent;
+
 
         // Private variables
         private Controls Controls;
@@ -60,6 +62,16 @@ namespace PlayerControls
         {
             // This method is here as a requirement from the Control object in Unity. However, the actual control of 
             // looking is handled by Cinemachine, so this body will remain blank
+        }
+
+        public void OnToggleTarget(InputAction.CallbackContext context)
+        {
+            // My goal is to have the same button enter and exit targeting state. If the player is not in a targeting
+            // state, the TargetCancelTarget button should put them into the state, and if the player is in the state
+            // then it should take them out of it.
+            if (!context.performed) return;
+
+            OnToggleTargetEvent?.Invoke();
         }
     }
 }
