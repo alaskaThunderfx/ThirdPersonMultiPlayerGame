@@ -6,10 +6,10 @@ namespace StateMachines.Player
     public class PlayerTargetingState : PlayerBaseState
     {
         // Private variables
-        
+
         // Hashes the TargetingBlendTree animation
         private static readonly int TargetingBlendTreeHash = Animator.StringToHash("TargetingBlendTree");
-        
+
         public PlayerTargetingState(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -18,14 +18,15 @@ namespace StateMachines.Player
         {
             // Plays the TargetingBlendTree animation when this state is entered
             StateMachine.Animator.Play(TargetingBlendTreeHash);
-            
+
             // subscribes the OnCancel method when this button is pressed.
             StateMachine.InputReader.OnToggleTargetEvent += OnCancel;
         }
 
         public override void Tick(float deltaTime)
         {
-            Debug.Log(StateMachine.Targeter.CurrentTarget.name);
+            if (StateMachine.Targeter.CurrentTarget != null) return;
+            StateMachine.SwitchState(new PlayerFreeLookState(StateMachine));
         }
 
         public override void Exit()
