@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
 namespace StateMachines.Player
@@ -16,6 +17,7 @@ namespace StateMachines.Player
 
         public override void Tick(float deltaTime)
         {
+            Debug.Log(StateMachine.Targeter.CurrentTarget.name);
         }
 
         public override void Exit()
@@ -26,6 +28,8 @@ namespace StateMachines.Player
 
         private void OnCancel()
         {
+            StateMachine.Targeter.Cancel();
+
             // Switches the state back to the FreeLookState
             StateMachine.SwitchState(new PlayerFreeLookState(StateMachine));
         }

@@ -1,3 +1,4 @@
+using Combat.Targeting;
 using PlayerControls;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace StateMachines.Player
 
         // Public variable for the Camera that will be set in code
         public Transform MainCameraTransform { get; private set; }
+        
+        // Public variable that allows access to the Targeter script
+        [field: SerializeField] public Targeter Targeter { get; private set; }
 
         // Public variables representing values
         [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }

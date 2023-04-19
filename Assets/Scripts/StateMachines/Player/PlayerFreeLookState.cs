@@ -70,6 +70,8 @@ namespace StateMachines.Player
         // Method that should toggle the targeting state
         private void OnTarget()
         {
+            if (!StateMachine.Targeter.SelectTarget()) return;
+            
             // Switches the states from this one to the TargetingState
             StateMachine.SwitchState(new PlayerTargetingState(StateMachine));
         }
