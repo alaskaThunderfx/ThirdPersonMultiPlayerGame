@@ -14,9 +14,12 @@ namespace StateMachines.Player
 
         // Public variable for the Camera that will be set in code
         public Transform MainCameraTransform { get; private set; }
-        
+
         // Public variable that allows access to the Targeter script
         [field: SerializeField] public Targeter Targeter { get; private set; }
+
+        // Reference to the ForceReceiver script
+        [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
 
         // Public variables representing values
         [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }
@@ -28,7 +31,7 @@ namespace StateMachines.Player
             // Confirms that the main camera exists, then sets the MainCameraTransform value to be equal to the
             // transform of the main camera in Unity
             if (Camera.main != null) MainCameraTransform = Camera.main.transform;
-            
+
             // Switches state when PlayerStateMachine is called
             SwitchState(new PlayerFreeLookState(this));
         }

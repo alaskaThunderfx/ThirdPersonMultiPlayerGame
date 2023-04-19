@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Networking.PlayerConnection;
 
 namespace StateMachines.Player
 {
@@ -45,7 +44,7 @@ namespace StateMachines.Player
             // based on the values it gets from the movement variable, the speed of which is dictated by the
             // configurable FreeLookMovementSpeed value set in the Editor (Player prefab). All of which is is multiplied
             // by deltaTime to keep the speed frame rate independent.
-            StateMachine.CharacterController.Move(movement * (StateMachine.FreeLookMovementSpeed * deltaTime));
+            Move(movement * StateMachine.FreeLookMovementSpeed, deltaTime);
 
             // Checks to see if any values representing movement are being sent by the InputReader
             if (StateMachine.InputReader.MovementValue == Vector2.zero)
