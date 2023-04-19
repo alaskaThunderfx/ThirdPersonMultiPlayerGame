@@ -5,12 +5,20 @@ namespace StateMachines.Player
 {
     public class PlayerTargetingState : PlayerBaseState
     {
+        // Private variables
+        
+        // Hashes the TargetingBlendTree animation
+        private static readonly int TargetingBlendTreeHash = Animator.StringToHash("TargetingBlendTree");
+        
         public PlayerTargetingState(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
+            // Plays the TargetingBlendTree animation when this state is entered
+            StateMachine.Animator.Play(TargetingBlendTreeHash);
+            
             // subscribes the OnCancel method when this button is pressed.
             StateMachine.InputReader.OnToggleTargetEvent += OnCancel;
         }

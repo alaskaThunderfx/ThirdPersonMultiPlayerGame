@@ -12,6 +12,9 @@ namespace StateMachines.Player
         // Assigns the int value from the FreeLookSpeed variable at the beginning of the game running and it will not 
         // change again
         private static readonly int FreeLookSpeedHash = Animator.StringToHash("FreeLookSpeed");
+        
+        // Hashes the FreeLookBlendTree animation
+        private static readonly int FreeLookBlendTreeHash = Animator.StringToHash("FreeLookBlendTree");
 
         // Variable that dictates the speed with which the animation transition between each other. Can be tweaked in the
         // editor
@@ -26,7 +29,10 @@ namespace StateMachines.Player
 
         public override void Enter()
         {
-            // Subscribes the OnTarget method when this state is enetered
+            // Play the FreeLookBlendTree animation when this state is entered
+            StateMachine.Animator.Play(FreeLookBlendTreeHash);
+            
+            // Subscribes the OnTarget method when this state is entered
             StateMachine.InputReader.OnToggleTargetEvent += OnTarget;
         }
 
